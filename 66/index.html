@@ -195,6 +195,17 @@ const engine = new Engine(GODOT_CONFIG);
 			setStatusMode('hidden');
 		}, displayFailureNotice);
 	}
+	function resizeCanvas() {
+		const canvas = document.getElementById('canvas');
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+	}
+
+	// 监听窗口大小变化
+	window.addEventListener('resize', resizeCanvas);
+	// 页面加载时调整画布大小
+	resizeCanvas();
+
 }());
 		</script>
 	</body>
