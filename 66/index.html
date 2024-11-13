@@ -151,9 +151,14 @@ const engine = new Engine(GODOT_CONFIG);
 
 	function zoomCanvas() {
     const scale = 1.5;
-    canvas.style.transform = `scale(${scale})`;
-    canvas.style.transformOrigin = '50% 50%';  // 设置缩放的原点为左上角
+
+    // 检查是否为竖屏
+    if (window.innerHeight > window.innerWidth) {
+        canvas.style.transform = `scale(${scale})`;
+        canvas.style.transformOrigin = '50% 50%'; // 设置缩放的原点为中心
+    }
 }
+
 
 	const missing = Engine.getMissingFeatures({
 		threads: GODOT_THREADS_ENABLED,
