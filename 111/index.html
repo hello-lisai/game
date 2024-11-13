@@ -133,6 +133,8 @@ const engine = new Engine(GODOT_CONFIG);
 		});
 	}
 
+	
+
 	function displayFailureNotice(err) {
 		console.error(err);
 		if (err instanceof Error) {
@@ -145,6 +147,25 @@ const engine = new Engine(GODOT_CONFIG);
 		setStatusMode('notice');
 		initializing = false;
 	}
+
+	function zoomCanvas() {
+    // 获取屏幕的宽度和高度
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    // 获取 canvas 的原始宽度和高度
+    const canvasWidth = canvas.clientWidth;
+    const canvasHeight = canvas.clientHeight;
+
+    // 计算适合屏幕的最大缩放比例
+    const scaleX = screenWidth / canvasWidth;
+    const scaleY = screenHeight / canvasHeight;
+    const scale = Math.min(scaleX, scaleY); // 取较小的比例以确保完整显示
+
+    // 应用缩放
+    canvas.style.transform = `scale(${scale})`;
+    canvas.style.transformOrigin = '50% 0'; // 设置缩放的原点为顶部中心
+}
 
 	const missing = Engine.getMissingFeatures({
 		threads: GODOT_THREADS_ENABLED,
@@ -188,6 +209,7 @@ const engine = new Engine(GODOT_CONFIG);
 			},
 		}).then(() => {
 			setStatusMode('hidden');
+			zoomCanvas();//添加函数
 		}, displayFailureNotice);
 	}
 }());
